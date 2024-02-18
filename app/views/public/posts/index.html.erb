@@ -1,0 +1,70 @@
+<h1>コース一覧</h1>
+<div class="row">
+  <div class="col-md-6 offset-md-3">
+    <%= form_with url: posts_path, method: :get, local: true do |f| %>
+      <div class="row">
+        <div class="col-md-5 mb-2">
+          <%= f.collection_select :prefecture_id, Prefecture.all, :id, :name, { include_blank: "--都道府県名から検索--", selected: params[:prefecture_id] }, { class: "form-control" } %>
+        </div>
+        <div class="col-md-5 mb-2">
+          <%= f.collection_select :workout_tag_id, WorkoutTag.all, :id, :name, { include_blank: "--距離から検索--", selected: params[:workout_tag_id] }, { class: "form-control" } %>
+        </div>
+        <div class="col-md-2 mb-2">
+          <%= f.submit "検索する", class: "btn btn-primary" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<div class="card-list-container py-5">
+  <% if @posts.any? %>
+    <div class="row">
+      <% @posts.each do |post| %>
+        <div class="col-lg-4 col-md-6">
+          <div class="card mt-4 shadow-lg">
+            <% if post.image.attached? %>
+              <%= image_tag post.image, class:"card-img-top" %>
+            <% else %>
+              <%= image_tag 'no_image', class:"card-img-top" %>
+            <% end %>
+            <div class="card-body">
+              <div class="">
+                <div class="">
+                  <p>見出し</p>
+                  <span><%= link_to post.titlename, "/posts/#{post.id}" %></span>
+                  <p>所在地</p>
+                  <%= post.prefecture.name %>
+                  <p>本文</p>
+                  <%= post.postcontent %>
+                  <div id="star-rate<%= post.id %>"></div>
+                  <p><%= link_to "#{post.comments.count} コメント", post_path(post.id) %></p>
+                  <p>タグ</p>
+                  <%= post.workout_tag.name %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <script>
+          $(document).on('turbolinks:load', function() {
+          let elem = document.querySelector('#star-rate<%= post.id%>');
+          if (elem == null) return;
+          
+          elem.innerHTML = "";
+          let opt = {  
+            starOn: "<%= asset_path('star-on.png') %>",
+            starOff: "<%= asset_path('star-off.png') %>",
+            score: "<%= ( post.reviews&.map {|o| o.star }.sum.to_f  / post.reviews.size ).round(1) || 0  %>",
+            readOnly: true,
+          };
+          raty(elem, opt);
+          });
+        </script>
+      <% end %>
+    </div>
+  <% else %>
+    <h3>該当する情報がありません</h3>
+  <% end %>
+</div>
+<%= paginate @posts %>

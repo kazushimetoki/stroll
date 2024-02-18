@@ -1,0 +1,2 @@
+module PostWorkousts::PublicHelper
+end

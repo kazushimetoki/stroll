@@ -1,0 +1,58 @@
+<div class="card-list-container py-5">
+  <div class="card w-50 mx-auto mt-4 shadow-lg">
+    <% if flash[:alert] %>
+     <div class="alert"><%=alert %></div>
+    <% end %>
+    <% if @post.image.attached? %>
+      <%= image_tag @post.image, class:"card-img-top" %>
+    <% else %>
+      <%= image_tag 'no_image', class:"card-img-top" %>
+    <% end %>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-10">
+          <h2>見出し</h2>
+          <p><%= @post.titlename %></p>
+  
+          <h4>所在地</h4>
+          <%= @post.prefecture.name %>
+  
+          <h2>本文</h2>
+          <p><%= @post.postcontent %></p>
+           <%= link_to "削除", admin_post_path(@post), method: :delete %>
+        </div>
+
+        <div id ='star-rate'>平均点<%= @reviews.average(:star) || 0 %></div>
+        <script>
+        //$('#star-rate').empty();
+        //$('#star-rate').raty({
+          // size      : 36,
+          // starOff   : '<%#= asset_path('star-off.png') %>',
+          // starOn    : '<%#= asset_path('star-on.png') %>',
+          // half      : false,
+          // readOnly: true,
+          // score: 5,
+          // });
+        </script>
+
+        <div>
+          <p>コメント件数：<%= @post.comments.count %></p>
+          <% @post.comments.each do |comment| %>
+            <p><%#= image_tag post_comment.user.get_profile_image(100,100) %></p>
+            <%= comment.user.last_name + comment.user.first_name %>
+            <%= comment.created_at.strftime('%Y/%m/%d') %><%= comment.commentcontent %>
+              <%= link_to "削除", post_comments_path(comment.post, comment), method: :delete %>
+          <% end %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-4 offset-4"></div>
+        <div class="col-4"></div>
+          
+      </div>
+      <h4>タグ</h4>
+      <%= @post.workout_tag.name %>
+        
+    </div>
+  </div>
+</div>

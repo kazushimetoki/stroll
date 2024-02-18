@@ -1,0 +1,95 @@
+<div class="card-list-container py-5">
+  <div class="card w-50 mx-auto mt-4 shadow-lg">
+    <% if flash[:alert] %>
+     <div class="alert"><%=alert %></div>
+    <% end %>
+    <% if @post.image.attached? %>
+      <%= image_tag @post.image, class:"card-img-top" %>
+    <% else %>
+      <%= image_tag 'no_image', class:"card-img-top" %>
+    <% end %>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-10">
+          <h2>見出し</h2>
+          <p><%= @post.titlename %></p>
+  
+          <h4>所在地</h4>
+          <%= @post.prefecture.name %>
+  
+          <h2>本文</h2>
+          <p><%= @post.postcontent %></p>
+          <% if @post.user_id == current_user.id %>
+           <%= link_to "削除", post_path(@post), method: :delete %>
+          <% end %>
+        </div>
+
+        <div id ='star-rate'>平均点<%= @reviews.average(:star) || 0 %></div>
+        <script>
+        //$('#star-rate').empty();
+        //$('#star-rate').raty({
+          // size      : 36,
+          // starOff   : '<%#= asset_path('star-off.png') %>',
+          // starOn    : '<%#= asset_path('star-on.png') %>',
+          // half      : false,
+          // readOnly: true,
+          // score: 5,
+          // });
+        </script>
+
+        <div>
+          <p>コメント件数：<%= @post.comments.count %></p>
+          <% @post.comments.each do |comment| %>
+            <p><%#= image_tag post_comment.user.get_profile_image(100,100) %></p>
+            <%= comment.user.last_name + comment.user.first_name %>
+            <%= comment.created_at.strftime('%Y/%m/%d') %><%= comment.commentcontent %>
+            <% if comment.user == current_user %>
+              <%= link_to "削除", post_comments_path(comment.post, comment), method: :delete %>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="offset-4">
+          <%= form_with model: [ @post, @comment ], url: post_comments_path(@post) do |f| %>
+            <%= render 'layouts/error_messages', model: f.object %>
+            <%= f.hidden_field :post_id, value: @post.id %>
+            <%= f.text_area :commentcontent, rows: '5', placeholder: "コメントをここに" %>
+            <p><%= link_to "#{@post.comments.count} コメント", post_path(@post.id) %></p>
+            <%= f.submit "送信する" %>
+          <% end %>
+        </div>
+          
+        <div class="offset-4">
+          <%= form_with model: [ @post, @review ], url: post_reviews_path(@post), method: :post do |f| %>
+            <%= render 'layouts/error_messages', model: f.object %>
+            
+            <p>評価</p>
+            <div id = "star"></div>
+            <%= f.text_area :commentcontent, rows: '5', placeholder: "コメントをここに" %>
+            <%= f.submit "送信する" %>
+          <% end %>
+        </div>
+      </div>
+        <!-- 評価javascript -->
+      <script>
+          $(document).on('turbolinks:load', function() {
+            let elem = document.querySelector('#star');
+            if (elem == null) return;
+      
+            elem.innerHTML = ""
+            let opt = {  
+              starOn: "<%= asset_path('star-on.png') %>",
+              starOff: "<%= asset_path('star-off.png') %>",
+              scoreName: 'review[star]',
+              score: '<%= @review.star %>'
+            };
+            raty(elem, opt);
+          });
+      </script>
+      <h4>タグ</h4>
+      <%= @post.workout_tag.name %>
+    </div>
+  </div>
+</div>
+  

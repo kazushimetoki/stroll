@@ -1,0 +1,47 @@
+<div class="card-list-container py-5">
+  <% @posts.each do |post| %>
+    <div class="card w-50 mx-auto mt-4 shadow-lg">
+      <% if post.image.attached? %>
+       <%= image_tag post.image, class:"card-img-top" %>
+      <% else %>
+       <%= image_tag 'no_image', class:"card-img-top" %>
+      <% end %>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-10">
+            <p>見出し</p>
+            <span><%= link_to post.titlename, "/posts/#{post.id}" %></span>
+    
+            <p>所在地</p>
+              <%= post.imageaddress %>
+    
+            <p>本文</p>
+              <%= post.postcontent %>
+            <td>
+              <div id="star-rate<%= post.id %>"></div>
+            </td>
+            <script>
+             $('#star-rate<%= post.id %>').empty();
+             $('#star-rate<%= post.id%>').raty({
+             size      : 36,
+             starOff   : '<%= asset_path('star-off.png') %>',
+             starOn    : '<%= asset_path('star-on.png') %>',
+             half      : false,
+             readOnly: true,
+             score: <%= ( post.reviews&.map {|o| o.star }.sum.to_f  / post.reviews.size ).round(1) || 0  %>,
+             });
+            </script>
+            <p><%= link_to "#{post.comments.count} コメント", post_path(post.id) %></p>
+    
+            タグリスト 
+            <% @tag_list.each do |tag| %>
+              <i class="fa-sharp fa-solid fa-tag"></i>
+              <%= link_to tag.name,search_tag_path(workout_tag_id: tag.id) %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
+<%= paginate @posts %>
