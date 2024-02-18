@@ -62,15 +62,17 @@ prefectures = prefecture_names.map do |name|
   Prefecture.create!(name: name)
 end
 
-(1..10).each do |n|
-  user = User.create!(email: "test#{n}@test.com",
-               password: "password",
-               last_name: "test#{n}",
-               first_name: "name#{n}",
-               last_name_kana: "test#{n}",
-               first_name_kana: "name#{n}")
-  (0..rand(0..3)).each do |i|
-    user.posts.create!(titlename: "title#{n}_#{i}", postcontent: "xxxxx" * rand(1..5), prefecture_id: prefectures.sample.id, workout_tag_id: workout_tags.sample.id)
+if Rails.env.development?
+  (1..10).each do |n|
+    user = User.create!(email: "test#{n}@test.com",
+                 password: "password",
+                 last_name: "test#{n}",
+                 first_name: "name#{n}",
+                 last_name_kana: "test#{n}",
+                 first_name_kana: "name#{n}")
+    (0..rand(0..3)).each do |i|
+      user.posts.create!(titlename: "title#{n}_#{i}", postcontent: "xxxxx" * rand(1..5), prefecture_id: prefectures.sample.id, workout_tag_id: workout_tags.sample.id)
+    end
   end
 end
 
