@@ -11,7 +11,6 @@ class Admin::PostsController < ApplicationController
     
     
   def show
-    @users = User.find(params[:id]) 
     @post = Post.find(params[:id])
     @post_comment = Comment.new
     @reviews = @post.reviews
