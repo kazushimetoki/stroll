@@ -1,4 +1,5 @@
 class Public::PostsController < ApplicationController
+  before_action :authenticate_user!
   def index
     @posts = Post.includes(:prefecture).includes(:workout_tag)
     @posts = @posts.where(prefecture_id: params[:prefecture_id]) if params[:prefecture_id].present?
@@ -15,10 +16,6 @@ class Public::PostsController < ApplicationController
     @comment = Comment.new
     @review = current_user.reviews.find_or_initialize_by(post_id: @post.id)
     @reviews = @post.reviews
-  end
-  
-  def edit
-    @post = Post.find(params[:id])
   end
   
   def create
