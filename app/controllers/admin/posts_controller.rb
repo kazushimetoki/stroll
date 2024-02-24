@@ -15,11 +15,6 @@ class Admin::PostsController < ApplicationController
     @post_comment = Comment.new
     @reviews = @post.reviews
   end
-    
-    
-  def edit
-    @users = User.find(params[:id])
-  end
   
   def update
     user = User.find(params[:id])

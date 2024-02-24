@@ -23,7 +23,10 @@ Rails.application.routes.draw do
     get 'posts/:id/edit' => 'posts#edit', as: 'edit_post'
     delete 'cart_items/destroy_all' => 'cart_items#destroy_all', as: 'destroy_all_cart_item'
     get "search_tag" => "post_workouts#search_tag"
-    resources :comments, only: [:index, :update, :destroy, :show]
+    resources :posts do
+      resources :comments, only: [:destroy]
+    end
+    resources :comments, only: [:index, :update, :show]
     resources :users, only: [:show, :edit, :update]
     resources :posts, only: [:show, :new, :index, :create, :destroy] do
       resources :comments, only: [:create]
@@ -44,8 +47,11 @@ Rails.application.routes.draw do
     root to: "homes#top"
     #get 'admins/:id' => 'admins#show', as: 'admin'
     #patch 'admins/:id' => 'admins#update', as: 'update_admin'
-    resources :users, only: [:show, :edit, :update, :index,:destroy]
-    resources :posts
+    resources :posts do
+      resources :comments, only: [:destroy]
+    end
+    resources :users, only: [:show, :update, :index,:destroy]
+    resources :posts, only: [:show, :update, :index,:destroy]
   end
   
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
