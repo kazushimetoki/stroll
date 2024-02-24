@@ -6,6 +6,7 @@ class Admin::PostsController < ApplicationController
     @posts = Post.includes(:prefecture).includes(:workout_tag)
     @posts = @posts.where(prefecture_id: params[:prefecture_id]) if params[:prefecture_id].present?
     @posts = @posts.where(workout_tag_id: params[:workout_tag_id]) if params[:workout_tag_id].present?
+    byebug
     @posts = @posts.page(params[:page])
   end
     
