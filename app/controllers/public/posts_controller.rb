@@ -4,7 +4,7 @@ class Public::PostsController < ApplicationController
     @posts = Post.includes(:prefecture).includes(:workout_tag)
     @posts = @posts.where(prefecture_id: params[:prefecture_id]) if params[:prefecture_id].present?
     @posts = @posts.where(workout_tag_id: params[:workout_tag_id]) if params[:workout_tag_id].present?
-    @posts = @posts.page(params[:page])
+    @posts = @posts.order(created_at: :desc).page(params[:page])
   end
   
   def new
@@ -20,11 +20,12 @@ class Public::PostsController < ApplicationController
   
   def create
    
-    post = Post.new(post_params)
-    post.user_id = current_user.id
-    if post.save
-    
-    redirect_to '/posts'
+    @post = Post.new(post_params)
+    @post.user_id = current_user.id
+    if @post.save
+      redirect_to '/posts'
+    else
+      render :new
     end
   end
   

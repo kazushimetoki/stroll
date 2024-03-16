@@ -42,9 +42,9 @@
           <% @post.comments.each do |comment| %>
             <p><%#= image_tag post_comment.user.get_profile_image(100,100) %></p>
             <%= comment.user.last_name + comment.user.first_name %>
-            <%= comment.created_at.strftime('%Y/%m/%d') %><%= comment.commentcontent %>
+            <%= comment.created_at.strftime('%Y/%m/%d %H:%M:%S') %><%= comment.commentcontent %>
             <% if comment.user == current_user %>
-              <%= link_to "削除", post_comment_path(@post, comment), method: :delete %>
+              <%= link_to "削除", post_comment_path(@post, comment), method: :delete , data:{confirm: "本当に削除しますか"} %>
             <% end %>
           <% end %>
         </div>

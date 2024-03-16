@@ -13,7 +13,7 @@
   <% if admin_signed_in? %>
     <ul>
       <li>
-        <%= link_to '強制退会', admin_user_path, method: :delete %>    
+        <%= link_to '強制退会', admin_user_path, method: :delete , data:{confirm: "本当に退会させますか"} %>    
       </li>
     </ul>
   <% end %>

@@ -1,6 +1,7 @@
 <div class="row no-gutters">
   <div class="col-md-5 col-sm-10 mx-2 mx-sm-auto shadow-lg rounded px-0 my-5">
     <h5 class="text-dark bg-light p-4 mb-0">新規投稿フォーム</h5>
+    <%= render partial: "users/shared/error_messages", locals: { resource: @post }%>
     <div class="form-body p-4">
       <%= form_with model: @post do |f| %>
         <h4>見出し</h4>
