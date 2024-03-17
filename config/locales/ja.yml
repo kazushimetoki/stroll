@@ -1,0 +1,28 @@
+ja:
+  errors:
+    messages:
+      not_saved: 保存できませんでした。
+  activerecord:
+    attributes:
+      post:
+        workout_tag: タグ
+        prefecture: 都道府県
+      user:
+        name: ユーザー名
+        email: メール
+        password: パスワード
+        password_confirmation: パスワード（確認）
+      tweet:
+        name: 名前
+        title: タイトル
+        body: 本文
+      comment:
+        name: 名前
+        comment: コメント
+  views:
+    pagination:
+      first: 最初
+      last: 最後
+      previous: 前
+      next: 次
+      truncate: ...
