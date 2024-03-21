@@ -1,9 +1,5 @@
 class Public::PostWorkoustsController < ApplicationController
   
-  def show
-   
-  end
-  
   def edit
     @post_workout = PostWorkout.find(params[:id])
     @tag_list = @post_workout.workout_tags.pluck(:name).join(',')
@@ -41,4 +37,5 @@ class Public::PostWorkoustsController < ApplicationController
     　#検索されたタグに紐づく投稿を表示
     @post_workouts = @tag.post_workouts
   end
+  
 end

@@ -47,6 +47,4 @@ class Public::PostsController < ApplicationController
      params.require(:post).permit(:titlename, :prefecture_id, :postcontent, :image, :review, :workout_tag_id)
   end
   
-  
-  
 end
