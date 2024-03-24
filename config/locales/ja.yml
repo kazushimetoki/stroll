@@ -19,6 +19,8 @@ ja:
       comment:
         name: 名前
         comment: コメント
+      review:
+        commentcontent: レビューコメント
   views:
     pagination:
       first: 最初
