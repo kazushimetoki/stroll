@@ -19,7 +19,7 @@
   
           <h2>本文</h2>
           <p><%= @post.postcontent %></p>
-           <%= link_to "削除", admin_post_path(@post), method: :delete %>
+           <%= link_to "削除", admin_post_path(@post), class:"btn btn-sm btn-danger", method: :delete %>
         </div>
 
         <div id ='star-rate'>平均点<%= @reviews.average(:star) || 0 %></div>
@@ -35,24 +35,25 @@
           // });
         </script>
 
-        <div>
+        <div class="col-md-12">
           <p>コメント件数：<%= @post.comments.count %></p>
           <% @post.comments.each do |comment| %>
+          <div class="border w-100 m-1 p-3">
             <p><%#= image_tag post_comment.user.get_profile_image(100,100) %></p>
-            <%= comment.user.last_name + comment.user.first_name %>
-            <%= comment.created_at.strftime('%Y/%m/%d') %><%= comment.commentcontent %>
-              <%= link_to "削除", admin_post_comment_path(@post, comment), method: :delete , data:{confirm: "本当に削除しますか"} %>
+            <%= comment.user.last_name + comment.user.first_name %><br>
+            <%= comment.created_at.strftime('%Y/%m/%d %H:%M:%S') %><br><%= comment.commentcontent %><br>
+              <%= link_to "削除", admin_post_comment_path(@post, comment), class:"btn btn-sm btn-danger", method: :delete , data:{confirm: "本当に削除しますか"} %>
+          </div>
           <% end %>
         </div>
       </div>
       <div class="row">
-        <div class="col-4 offset-4"></div>
-        <div class="col-4"></div>
-          
+        <!--<div class="col-4 offset-4"></div>-->
+        <div class="col-12">
+          <h4>タグ</h4>
+          <%= @post.workout_tag.name %>
+        </div>
       </div>
-      <h4>タグ</h4>
-      <%= @post.workout_tag.name %>
-        
     </div>
   </div>
 </div>

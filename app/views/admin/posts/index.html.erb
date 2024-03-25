@@ -47,16 +47,33 @@
           </div>
         </div>
         <script>
-          $('#star-rate<%= post.id %>').empty();
-          $('#star-rate<%= post.id%>').raty({
-            size      : 36,
-            starOff   : '<%= asset_path('star-off.png') %>',
-            starOn    : '<%= asset_path('star-on.png') %>',
-            half      : false,
-            readOnly: true,
-            score: <%= ( post.reviews&.map {|o| o.star }.sum.to_f  / post.reviews.size ).round(1) || 0  %>,
+          $(document).on('turbolinks:load', function() {
+            let elem = document.querySelector('#star-rate<%= post.id %>');
+            if (elem == null) return;
+      
+            elem.innerHTML = ""
+            let opt = {  
+              starOn: "<%= asset_path('star-on.png') %>",
+              starOff: "<%= asset_path('star-off.png') %>",
+              starHalf: "<%= asset_path('star-half.png') %>",
+              scoreName: 'review[star]',
+              score: <%= ( post.reviews&.map {|o| o.star }.sum.to_f  / post.reviews.size ).round(1) || 0  %>,
+              readOnly: true
+            };
+            raty(elem, opt);
           });
         </script>
+        <!--<script>-->
+        <!--  $('#star-rate<#%= post.id %>').empty();-->
+        <!--  $('#star-rate<#%= post.id%>').raty({-->
+        <!--    size      : 36,-->
+        <!--    starOff   : '<#%= asset_path('star-off.png') %>',-->
+        <!--    starOn    : '<#%= asset_path('star-on.png') %>',-->
+        <!--    half      : false,-->
+        <!--    readOnly: true,-->
+        <!--    score: <#%= ( post.reviews&.map {|o| o.star }.sum.to_f  / post.reviews.size ).round(1) || 0  %>,-->
+        <!--  });-->
+        <!--</script>-->
       <% end %>
     </div>
   <% else %>
