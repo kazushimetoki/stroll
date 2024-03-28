@@ -92,6 +92,11 @@
       </script>
       <h4>タグ</h4>
       <%= @post.workout_tag.name %>
+      <h4 class="mt-4">
+        <% if @post.user_id == current_user.id %>
+          <%= link_to "修正", edit_post_path(@post), class:"btn btn-sm btn-danger" %>
+        <% end %>
+      </h4>
     </div>
   </div>
 </div>

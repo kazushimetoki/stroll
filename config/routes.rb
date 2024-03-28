@@ -20,7 +20,7 @@ Rails.application.routes.draw do
     post 'posts' => 'posts#create'
     get 'posts/new'
     get 'posts/:id' => 'posts#show', as: 'post'
-    get 'posts/:id/edit' => 'posts#edit', as: 'edit_post'
+    #get 'posts/:id/edit' => 'posts#edit', as: 'edit_post'
     delete 'cart_items/destroy_all' => 'cart_items#destroy_all', as: 'destroy_all_cart_item'
     get "search_tag" => "post_workouts#search_tag"
     resources :posts do
