@@ -19,7 +19,7 @@
   
           <h2>本文</h2>
           <p><%= @post.postcontent %></p>
-           <%= link_to "削除", admin_post_path(@post), class:"btn btn-sm btn-danger", method: :delete %>
+           <%= link_to "削除", admin_post_path(@post), class:"btn btn-sm btn-danger", method: :delete , data:{confirm: "本当に削除しますか"} %>
         </div>
 
         <div id ='star-rate'>平均点<%= @reviews.average(:star) || 0 %></div>
