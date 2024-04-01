@@ -24,7 +24,17 @@
 - 自分のお気に入りのコースを投稿したい時
 ​
 ## 設計書
-後ほど作成予定
+- ER図
+- https://drive.google.com/file/d/16JqVZqidi0suX-bp5AROzYscHffKEXac/view?usp=sharing
+
+- テーブル定義書
+- https://docs.google.com/spreadsheets/d/1feNytmo7Lx4w53iDdfZ1RihziwIBbZPz2Ve1JSx0lhE/edit?usp=sharing
+
+- 詳細設計書
+- https://docs.google.com/spreadsheets/d/1D7E6zuU1QUT1tsl2UWRG7M2MWtgLHpVb5DFnugrhMFU/edit?usp=sharing
+
+- テスト仕様書
+- https://docs.google.com/spreadsheets/d/1J-W-HZtkxr_nC_jVLmslzSvOTSMklJIu/edit?usp=sharing&ouid=104355152895194349940&rtpof=true&sd=true
 ​
 ## 開発環境
 - OS：Linux(CentOS)
