@@ -44,4 +44,8 @@
 - IDE：Cloud9
 ​
 ## 使用素材
-- 検討中
+- ICOOON MONO
+- https://icooon-mono.com/
+
+- Github
+- https://github.com/wbotelhos/raty
