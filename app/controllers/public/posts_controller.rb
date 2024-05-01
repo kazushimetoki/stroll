@@ -8,7 +8,7 @@ class Public::PostsController < ApplicationController
   end
   
   def new
-   @post = Post.new
+    @post = Post.new
   end
   
   def show
@@ -47,7 +47,7 @@ class Public::PostsController < ApplicationController
   private
  
   def post_params
-     params.require(:post).permit(:titlename, :prefecture_id, :postcontent, :image, :review, :workout_tag_id)
+    params.require(:post).permit(:titlename, :prefecture_id, :postcontent, :image, :review, :workout_tag_id)
   end
   
 end
